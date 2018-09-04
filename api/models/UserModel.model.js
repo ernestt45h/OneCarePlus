@@ -76,7 +76,25 @@ class UserModel extends BaseModel {
     return User_Document
   }
 
+  async createUserAccount(body, role){
+    let user = User({
+      credentials:{
+        info:{
+          email: body.email,
+          username: body.username,
+          address: body.address,
+          phone: body.phone,
+          role: role
+        },
+        password: body.password
+      }
+    })
 
+    return user.save((err)=>{
+      if(err) throw err
+      return true
+    })
+  }
 
 }
 
