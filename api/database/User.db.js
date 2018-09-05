@@ -5,13 +5,11 @@ const User = mongoose.Schema({
         name: {
             first: {
                 type: String,
-                required: true,
                 lowercase: true,
                 trim: true
             },
             last: {
-                type: String,
-                required: true
+                type: String
             },
             other: String
         },
@@ -22,9 +20,9 @@ const User = mongoose.Schema({
         },
         date_of_birth:{
             type: Date,
-            required: true
         },
         profile_image: String,
+        hospital: {type: mongoose.Schema.ObjectId, ref: 'hospital' }
     },
     credentials:{
         info:{
@@ -56,6 +54,6 @@ const User = mongoose.Schema({
     permissions: [
         {type: mongoose.Schema.ObjectId, ref: 'permission'}
     ],
-})
+},)
 
 module.exports = mongoose.model('user', User)
