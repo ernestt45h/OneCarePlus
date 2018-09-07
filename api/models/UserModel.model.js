@@ -139,14 +139,12 @@ class UserModel extends BaseModel {
       error: 'empty body passed'
     }
     let emailOk = await this.isEmail(body.email)
-    console.log('email ok ', emailOk)
     if (emailOk) throw {
       error: 'email already registered'
     }
 
     if (body.username) {
       let usernameOk = await this.isUsername(body.username)
-      console.log('user ok ', usernameOk)
       if (usernameOk) throw {
         error: 'username already taken'
       }
@@ -181,7 +179,6 @@ class UserModel extends BaseModel {
         username
       }]
     }).then((result) => {
-      console.log(passwordHasher.verify(password, result.credentials.password))
       if (passwordHasher.verify(password, result.credentials.password)) {
         //Do some tokenization here
         return this.generateUserToken({
@@ -189,7 +186,6 @@ class UserModel extends BaseModel {
           user_id: result._id,
           user_role: result.credentials.info.role
         }).then((token) => {
-          console.log(result)
           return {
             token,
             ...result.credentials.info,

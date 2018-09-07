@@ -15,7 +15,9 @@
     "@capacitor/cli": "^1.0.0-beta.7",
     "@capacitor/core": "^1.0.0-beta.7",
     "axios": "^0.18.0",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
+    "material-icons": "^0.2.3",
     "password-hash": "^1.2.2",
     "socket.io": "^2.1.1",
     "vue": "^2.5.2",
@@ -26,6 +28,7 @@
     "vue-social-sharing": "^2.3.3",
     "vue-socket.io": "^2.1.1-b",
     "vue2-transitions": "^0.2.3",
+    "vuesax": "^3.2.25",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

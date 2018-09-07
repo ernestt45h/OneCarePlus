@@ -8,7 +8,11 @@ export default class UserService {
 
     async loginUser(url, username, password){
         return this.axios.post(url,{username, password})
-        .then(data=>data).catch(err=>err)
+        .then(data=>data).catch(err=>{throw err})
+    }
+
+    async signupUser(url, data){
+        return this.axios.post(url, data).then(data=>data).catch(err=>{throw err})
     }
 
 }

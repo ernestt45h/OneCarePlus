@@ -4,6 +4,9 @@ import Axios from 'axios'
 
 export default class MainService{
     constructor(){
+        this.unhandler = Axios.create({
+            baseURL: Api.host,
+        })
         this.handler = Axios.create({
             baseURL: Api.host,
             auth:{
@@ -14,7 +17,7 @@ export default class MainService{
 
 
     async get(url){
-        return this.handler.get(url).then(req=>{
+        return this.unhandler.get(url).then(req=>{
             return req.data
         }).catch(err=>{
             throw err
@@ -23,7 +26,7 @@ export default class MainService{
 
 
     async post(url, body){
-        return this.handler.post(url, body).then(req=>{
+        return this.unhandler.post(url, body).then(req=>{
             return req.data
         }).catch(err=>{
             throw err

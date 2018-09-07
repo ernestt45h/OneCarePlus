@@ -24,10 +24,9 @@ route.post('/', (req, res) => {
     let user = new User()
     if(!req.headers.authorization){
       user.createUserAccount(req.body,'patient').then((result) => {
-        res.json({message: 'user sign up successfully'})
+        res.json({message: 'please check your email for verification', title: 'successfull sign up'})
       }).catch((err) => {
         res.status(406).json(err)
-        console.log(err)
       });
     }else{
       user.verifyBearerToken(req.headers.authorization).then((result) => {

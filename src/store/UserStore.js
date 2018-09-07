@@ -1,10 +1,9 @@
-import UserService from '../services/UserService'
-import {bus} from '../main'
+import UserStateManagment from './plugins/userState.plugin'
 
 export default {
     namespaced: true,
     state: {
-        details: {
+        details: JSON.parse(localStorage.getItem('user')) || {
             name: {
                 firstName: '',
                 lastName: '',
@@ -14,9 +13,9 @@ export default {
             email: '',
             phone: '',
             gender: '',
-            age: ''
-        },
-        token: ''
+            age: '',
+            token: ''
+        }
     },
     getters:{
         fullName: state => {
@@ -26,36 +25,23 @@ export default {
             else return ''
         },
         isUser: state=>{
-            return state.token ? true : false
-        }
+            return state.details.username ? true : false
+        },
+
+        isAuthenticated: state=> { return state.details.token ? true : false }
     },
     mutations:{
+        update: (state, payload)=>{
+            state.details = payload
+        },
+
         update_token:(state, payload)=>{
-            state.token = payload
+            state.details.token = payload
         }
     },
     actions:{
-        loginUser: ({commit, rootState}, payload)=>{
-            let service = new UserService()
-            service.loginUser('user/auth', payload.username, payload.password).then(data=>{
-                if(data.token){
-                    commit('update_token', data.token)
-                    bus.$emit('login_success')
-                } 
-                else
-                    bus.$emit('login_error', {
-                        type: 'danger',
-                        title: 'Wrong authentication',
-                        content: 'You have entered a wrong username, email, phone or password '
-                    }, {root: true})
-            }).catch((err)=>{
-                commit('notify', {
-                    type: 'danger',
-                    title: 'Connection Error',
-                    content: 'Try connecting to the internet and try again'
-                })
-            })
+        logout: ({commit}, payload)=>{
+            if(payload) commit('update', '')
         }
     }
-
 }

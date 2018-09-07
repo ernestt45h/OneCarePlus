@@ -6,7 +6,7 @@
         <icon v-if="type == 'danger'" class="icon" name="exclamation-triangle" :style="`color: var(--${type})`"/>
         <icon v-else-if="type == 'success'" class="icon" name="check-circle" :style="`color: var(--${type})`"/>
         <icon v-else-if="type == 'info'" class="icon" name="exclamation-circle" :style="`color: var(--${type})`"/>
-        <icon v-else class="icon" name="sda"/>        
+        <icon v-else class="icon" name=""/>        
         <div class="content">
             <p class="title">{{title}}</p>
             <p class="body">{{content}}</p>
