@@ -7,7 +7,7 @@ export default class UserService {
     }
 
     async loginUser(url, username, password){
-        return this.axios.post(url,{username, password})
+        return this.axios.post(url,{ auth:username, password})
         .then(data=>data).catch(err=>{throw err})
     }
 

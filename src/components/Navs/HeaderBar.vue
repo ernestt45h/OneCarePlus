@@ -6,7 +6,7 @@
     </Header>
 </template>
 <script>
-const Notifications = _=>import('./panels/Notifications')
+const Notifications = _=>import('./panels/NotificationsTabs')
 const Logo = _=>import('../Basic/LogoBtn')
 export default {
     data(){
@@ -20,6 +20,7 @@ export default {
 
 <style scoped>
     header{
+        padding: 0 20px;
         width: calc(100vw - 50px);
         height: 70px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, .25);

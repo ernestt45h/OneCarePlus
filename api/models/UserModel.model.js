@@ -8,6 +8,8 @@ const User = require('../database/User.db')
 const Permission = require('../database/Permission.db')
 const Hospital = require('../database/Hospital.db')
 
+
+
 class UserModel extends BaseModel {
 
   constructor() {
@@ -15,8 +17,8 @@ class UserModel extends BaseModel {
   }
 
   /**
-   * 
    * @param {Object} condition 
+   * 
    */
   async find(condition) {
     return User.find(condition)
@@ -174,31 +176,48 @@ class UserModel extends BaseModel {
   async loginUser(username, password, user_ip) {
     return this.findOne({
       $or: [{
-        email: username
+        'credentials.info.email': username
       }, {
-        username
+        'credentials.info.username': username
       }]
     }).then((result) => {
-      if (passwordHasher.verify(password, result.credentials.password)) {
-        //Do some tokenization here
-        return this.generateUserToken({
-          user_ip: user_ip,
-          user_id: result._id,
-          user_role: result.credentials.info.role
-        }).then((token) => {
-          return {
-            token,
-            ...result.credentials.info,
-            ...result.permission,
-            ...result.details
-            
-          }
-        }).catch((err) => {
-          throw err
-        });
-      } else return {
-        error: 'wrong credentials provided'
-      }
+      if(!result) throw {error: 'wrong credentials provided'}
+
+      let permMod = require('../models/PermsModel.model')
+      permMod = new permMod() 
+      return permMod.find(
+        {'role': result.credentials.info.role, is_default: true},
+        'type role target name sub_name actions icon'
+      ).then((newPems) => {
+        
+        console.log( result.credentials.info.role)
+
+        if (passwordHasher.verify(password, result.credentials.password)) {
+          //Do some tokenization here
+          return this.generateUserToken({
+            user_ip: user_ip,
+            user_id: result._id,
+            user_role: result.credentials.info.role
+          }).then((token) => {
+            return {
+              token,
+              ...result.credentials.info,
+              permissions:{
+              ...result.permission,
+              ...newPems
+            },
+              ...result.details
+            }
+          }).catch((err) => {
+            throw err
+          });
+        } else throw {
+          error: 'wrong credentials provided'
+        }
+
+      }).catch((err) => {
+        throw {error: 'unable to get user permissions'}
+      });
     }).catch((err) => {
       throw err
     });

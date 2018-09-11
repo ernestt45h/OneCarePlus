@@ -17,15 +17,28 @@ const { Device } = Plugins;
 import './assets/css/main.css'
 import 'vuesax/dist/vuesax.css' //Vuesax styles
 import 'material-icons/iconfont/material-icons.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
-Vue.use(Vuesax)
+Vue.use(Vuesax, {
+  theme:{
+    colors:{
+      primary:'rgb(0, 204, 255)',
+      success:'#29F49A',
+      danger:'rgb(242, 19, 93)',
+      warning:'rgb(255, 130, 0)',
+      dark:'rgb(36, 33, 69)'
+    }
+  }
+})
 //Vue.component('icon', Icon)
 Vue.use(Vuex)
 Vue.use(Transition)
 
+
 export const bus = new Vue()
 
 Vue.config.productionTip = false
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -56,4 +69,8 @@ new Vue({
       <router-view/>
     </zoom-center-transition>
   </div>`,
+})
+
+document.addEventListener('contextmenu', e=>{
+  e.preventDefault()
 })

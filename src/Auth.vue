@@ -142,7 +142,6 @@ export default {
             login.remove('section-close')
             signup.add('section-close')
             signup.remove('section-open')
-            console.log('transition')
         },
         signupFocus(){
             let login = this.$refs.login.classList
@@ -168,10 +167,10 @@ export default {
                         this.$router.push('/')
                     }, 2000);
                 }else{
-                    icon.remove('in-progress')
+                    icon.remove('in-progress')  
                     this.loginFocus()
                     this.$vs.notify({
-                        title: result.error,
+                        title: result.response.data.error,
                         color: 'danger',
                         icon: 'warning'
                     })
@@ -179,7 +178,12 @@ export default {
             }).catch((err) => {
                 icon.remove('in-progress')
                     this.loginFocus()
-                    this.$store.commit('notify', err)
+                    this.$vs.notify({
+                        title: 'Error',
+                        text: err.response.data.error,
+                        color: 'danger',
+                        icon: 'warning'
+                    })
             });
             
         },
@@ -218,9 +222,9 @@ export default {
                     icon.remove('in-progress')
                         this.signupFocus()
                         this.$vs.notify({
-                            title: 'connection crror',
+                            title: 'Error',
                             icon: 'error',
-                            text: 'please check your internet connection and try again',
+                            text: err.response.data.error,
                             color: 'danger'
                         })
                 });

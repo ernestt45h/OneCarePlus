@@ -8,8 +8,6 @@
         </fade-transition>
         <ul>
             <li><i class="material-icons">dashboard</i></li>
-            <li><i class="material-icons">folder_open</i></li>
-            <li><i class="material-icons">perm_contact_calendar</i></li>
         </ul>
         
         <div class="bottom">
@@ -41,7 +39,7 @@ export default {
     #sidebar{
         width:50px;
         height: 100vh;
-        position: absolute;
+        position: fixed;
         left: 0;
         background: linear-gradient( #29F49A,rgb(0, 204, 255), rgb(0, 204, 255));
         box-shadow: 5px 0px 20px rgba(0, 0, 0, .25);
@@ -74,6 +72,10 @@ export default {
         overflow-x: hidden;
     }
 
+    span{
+        font-size: 24px;
+    }
+    
 
 </style>
 

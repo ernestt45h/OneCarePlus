@@ -9,9 +9,11 @@ const host = require('./config/host')
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const authChecker = require('./plugins/AuthCheck')
 
 //Routes
 const UserRoute = require('./routes/UserRoute')
+const PermsRoute = require('./routes/PermissionRoute')
 
 //Database Connection
 const db = require('./config/database')
@@ -35,6 +37,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/user', UserRoute)
+app.use('/permission', authChecker, PermsRoute)
 
 
 app.listen(host.port);

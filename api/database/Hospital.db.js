@@ -13,6 +13,7 @@ const Hospital = new mongoose.Schema({
     },
     type: String,
     description: String,
+    paractices: [{type: mongoose.Schema.ObjectId, ref: 'hopital_practice'}],
     city: String,
     zip: String,
     state: String,

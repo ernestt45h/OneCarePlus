@@ -3,24 +3,12 @@ import UserStateManagment from './plugins/userState.plugin'
 export default {
     namespaced: true,
     state: {
-        details: JSON.parse(localStorage.getItem('user')) || {
-            name: {
-                firstName: '',
-                lastName: '',
-                otherName: ''
-            },
-            username:'',
-            email: '',
-            phone: '',
-            gender: '',
-            age: '',
-            token: ''
-        }
+        details: JSON.parse(localStorage.getItem('user')) || ''
     },
     getters:{
         fullName: state => {
             let name = state.details.name
-            if(name.lastName || name.lastName)
+            if( name && (name.lastName || name.lastName))
              return `${name.lastName} ${name.lastName} ${name.otherName}`
             else return ''
         },
@@ -37,11 +25,15 @@ export default {
 
         update_token:(state, payload)=>{
             state.details.token = payload
+        },
+
+        delete: (state, payload)=>{
+            if(payload) state.details = ''
         }
     },
     actions:{
         logout: ({commit}, payload)=>{
-            if(payload) commit('update', '')
+            if(payload) commit('delete', true )
         }
     }
 }

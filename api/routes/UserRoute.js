@@ -1,5 +1,4 @@
 const route = require('express').Router()
-const jwtAuth = require('../plugins/AuthCheck')
 const User = require('../models/UserModel.model')
 
 //Routes
@@ -36,9 +35,5 @@ route.post('/', (req, res) => {
       });
     }
 })
-
-
-
-
 
 module.exports = route

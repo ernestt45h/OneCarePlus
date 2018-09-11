@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var settings = require('../config/settings')
 
 
 const Permission = mongoose.Schema({
@@ -16,15 +17,23 @@ const Permission = mongoose.Schema({
     role: String,
     actions: [{
         type: String,
-        enum: ['create', 'read', 'delete', 'update', 'develop']
+        enum: ['create', 'read', 'update', 'delete', 'develop']
     }],
-    target:String,
+    target:{
+        type: String,
+        enum: settings.users
+    },
     is_default: {
         type: Boolean,
         default: false
     },
-    author: {type: String},
-    fa_icon: String
+    dev_id: {type: mongoose.Schema.ObjectId, ref:'user'},
+    type: String,
+    icon:{
+        fa: String,
+        mi: String,
+        svg: String
+    }
 })
 
 Permission.pre('save', function(next){
@@ -40,6 +49,8 @@ Permission.pre('save', function(next){
         this.actions = ['create', 'read', 'delete', 'update']
         this.is_default = true
     }
+    if(!this.type) this.type = 'navigation'
+    
 
     next()
 })

@@ -82,6 +82,10 @@ class BaseModel {
 		})
 	}
 
+	async save(document){
+		let doc = this.model(document)
+		return doc.save()
+	}
 
 }
 
