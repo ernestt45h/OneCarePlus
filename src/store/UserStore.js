@@ -1,5 +1,3 @@
-import UserStateManagment from './plugins/userState.plugin'
-
 export default {
     namespaced: true,
     state: {
@@ -16,7 +14,8 @@ export default {
             return state.details.username ? true : false
         },
 
-        isAuthenticated: state=> { return state.details.token ? true : false }
+        isAuthenticated: state=> { return state.details.token ? true : false },
+        permissions: state=> {return state.details.permissions}
     },
     mutations:{
         update: (state, payload)=>{

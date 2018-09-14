@@ -7,7 +7,7 @@ route.post('/', (req, res)=>{
     if(req.user.user_role !== "developer")
         res.status(401).send({error: 'user role is not authorized'})
     else{
-        if(!res.body) 
+        if(!req.body) 
             res.status(401).send({error: 'permission fields needed'})
         else{
             let perm = new Perms()

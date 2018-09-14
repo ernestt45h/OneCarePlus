@@ -17,6 +17,7 @@ module.exports = (req, res, next)=>{
                 res.status(401).send("Unacceptable token")
             }
         } catch (error) {
+            console.log(error)
             res.status(401).send("Unacceptable token")
         }
         }

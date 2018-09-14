@@ -1,7 +1,6 @@
 <template>
     <Header>
         <logo id="logo"/>
-        
         <notifications class="note-panel"/>
     </Header>
 </template>
@@ -32,6 +31,7 @@ export default {
 
     .note-panel{
         float: right;
+        margin-top: 7px;
     }
 
     #logo{

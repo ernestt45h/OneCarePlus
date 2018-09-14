@@ -39,6 +39,7 @@ const Permission = mongoose.Schema({
 Permission.pre('save', function(next){
     this.name = this.name.toUpperCase()
     this.sub_name = this.name.toLowerCase()
+    this.sub_name= this.sub_name.replace(new RegExp(' ', 'g'), '_')
     if(!this.access_point) {
         const host = require('../config/host')
         this.access_point = host.name + '/' + this.sub_name

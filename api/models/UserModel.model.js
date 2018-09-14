@@ -201,6 +201,7 @@ class UserModel extends BaseModel {
           }).then((token) => {
             return {
               token,
+              id: result._id, 
               ...result.credentials.info,
               permissions:{
               ...result.permission,

@@ -5,9 +5,9 @@
     <div class="wrapper">
       <header-bar/>
       <!--TitleBar-->
-      <fade-transition>
+      <slide-x-right-transition mode="out-in">
         <router-view/>
-      </fade-transition>          
+      </slide-x-right-transition>          
     </div>
   </div>
 </template>

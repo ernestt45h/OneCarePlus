@@ -10,13 +10,12 @@ import Vuesax from 'vuesax'
 import store from './store'
 
 
-import { Plugins } from '@capacitor/core';
-const { Device } = Plugins;
+//import { Plugins } from '@capacitor/core';
+//const { Device } = Plugins;
 
 
 import './assets/css/main.css'
 import 'vuesax/dist/vuesax.css' //Vuesax styles
-import 'material-icons/iconfont/material-icons.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.use(Vuesax, {
@@ -65,7 +64,7 @@ new Vue({
   },
   template: `
   <div>
-    <zoom-center-transition>
+    <zoom-center-transition mode="out-in">
       <router-view/>
     </zoom-center-transition>
   </div>`,

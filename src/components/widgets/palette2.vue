@@ -1,17 +1,37 @@
 <template>
     <div id="palette" class="col-12 col-sm-6 col-md-6 col-lg-3">
-        <div class="card" id="storageCard">
-          <div class="card-title">Used space</div>
-          <div class="card-icon"><i class="material-icons">face</i></div>
-          <div class="card-data">99/100 GB</div>
-          <hr/>
-          <div class="card-hint"> <i class="material-icons">warning</i><a href="#">Get more space</a></div>
-        </div>
+        <router-link class="routerlink" :to="to || '#'">
+          <div class="card" :id="color || 'blue'">
+            <div class="card-title">&nbsp</div>
+            <div v-if="icon" class="card-icon">
+              <i v-if="icon.mi" class="material-icons">{{icon.mi}}</i>
+              <i v-else-if="icon.fa" class="fa" :class="'fa-'+icon.fa"></i>
+              <img v-else-if="icon.svg" :src="icon.svg"/>
+            </div>
+            <div class="card-data">{{title}}</div>
+            <template v-if="hint">
+                <hr/>
+                <div class="card-hint"> 
+                  <i class="material-icons">{{hintIcon}}</i>
+                  <a href="#">{{hint}}</a></div>
+            </template>
+          </div>
+        </router-link>
       </div>
 </template>
+<script>
+export default {
+  props:['title','icon','text','hint', 'hintIcon', 'to', 'color']
+}
+</script>
+
 <style scoped>
 #palette{
   font-family: "Roboto", sans-serif;
+}
+
+.routerlink{
+  text-decoration: none;
 }
 
 h1 {
@@ -35,17 +55,18 @@ h1 {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
 }
  .card .card-title {
+  text-transform: capitalize;
   display: flex;
   justify-content: flex-end;
   padding: 16px;
   font-weight: 300;
 }
   .card .card-data {
-  display: flex;
-  justify-content: flex-end;
-  padding: 16px 16px 0 0;
+  padding: 16px 16px 0 16px;
   font-size: 1.5rem;
   font-weight: 300;
+  text-transform: capitalize;
+  text-align: center;
 }
   .card hr {
   width: 90%;
@@ -78,28 +99,28 @@ h1 {
   .card .card-icon i {
   font-size: 4rem;
 }
-  #storageCard .card-icon {
+  #blue .card-icon {
   background: linear-gradient(60deg, #5E35B1, #039BE5);
 }
-  #storageCard .card-hint i {
+  #blue .card-hint i {
   color: red;
 }
-  #loveCard .card-icon {
+  #red .card-icon {
   background: linear-gradient(60deg, #F50057, #FF8A80);
 }
-  #loveCard .card-hint i {
+  #red .card-hint i {
   color: blue;
 }
-  #pizzaCard .card-icon {
+  #yellow .card-icon {
   background: linear-gradient(60deg, #fb8c00, #FFCA29);
 }
-  #pizzaCard .card-hint i {
+  #yellow .card-hint i {
   color: red;
 }
-  #gameCard .card-icon {
+  #green .card-icon {
   background: linear-gradient(60deg, #43A047, #FFEB3B);
 }
-  #gameCard .card-hint i {
+  #green .card-hint i {
   color: green;
 }
 

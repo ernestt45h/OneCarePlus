@@ -1,13 +1,31 @@
 <template>
     <div id="sidebar" :class="{expand: isExpanded}">
         <fade-transition>
-            <div id="expander" @click="expandMenu" >
+            <li id="expander" @click="expandMenu">
                 <i v-if="!isExpanded" class="material-icons">menu</i>
-                <i v-else class="material-icons">close</i> 
-            </div>
+                <i v-else class="material-icons">close</i><span>Menu</span> 
+            </li>
         </fade-transition>
         <ul>
-            <li><i class="material-icons">dashboard</i></li>
+             <router-link 
+                class="link" 
+                to="/">
+                <li><i class="material-icons">dashboard</i><span>dashboard</span></li>
+             </router-link>
+            <router-link 
+                class="link" 
+                v-for="permission in permissions" 
+                :key="permission._id"  
+                :to="permission.sub_name">
+                
+                    <li>
+                        <i v-if="permission.icon.mi" class="material-icons">{{permission.icon.mi}}</i>
+                        <i v-else-if="permission.icon.fa" class="material-icons">{{permission.icon.fa}}</i>
+                        <i v-else-if="permission.icon.svg" class="material-icons">{{permission.icon.svg}}</i>
+                        <span>{{permission.sub_name}}</span>
+                    </li>
+                
+                </router-link>
         </ul>
         
         <div class="bottom">
@@ -24,7 +42,8 @@
 export default {
     data(){
         return{
-            isExpanded: false
+            isExpanded: false,
+            permissions: this.$store.getters['permission/navigation']
         }
     },
     methods:{
@@ -45,9 +64,15 @@ export default {
         box-shadow: 5px 0px 20px rgba(0, 0, 0, .25);
         color: white;
         transition: all .3s;
-        z-index: 99999;
+        z-index: 9999;
+        overflow: hidden;
     }
     
+    .link{
+        color: white;
+        text-decoration: none;
+    }
+
     .bottom{
         position: absolute;
         bottom: 0;
@@ -72,8 +97,14 @@ export default {
         overflow-x: hidden;
     }
 
+    li{
+        display: inline-flex;
+    }
+
     span{
-        font-size: 24px;
+        margin-top: 27px;
+        font-size: 18px;
+        text-transform: capitalize;
     }
     
 
