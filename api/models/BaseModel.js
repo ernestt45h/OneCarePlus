@@ -63,6 +63,14 @@ class BaseModel {
 		});
 	}
 
+	async findOneAndUpdate(condition, doc){
+		return this.model.findOneAndUpdate(condition, doc, {new: true	}).then((result) => {
+			return result
+		}).catch((err) => {
+			throw err
+		});
+	}
+
 	async count(condition){
 		return this.model.count(condition, (e)=>{
 			return e

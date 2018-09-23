@@ -15,7 +15,8 @@ export default {
         },
 
         isAuthenticated: state=> { return state.details.token ? true : false },
-        permissions: state=> {return state.details.permissions}
+        permissions: state=> {return state.details.permissions},
+        token: state=>state.details.token
     },
     mutations:{
         update: (state, payload)=>{

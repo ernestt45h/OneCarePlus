@@ -22,7 +22,7 @@
                         <i v-if="permission.icon.mi" class="material-icons">{{permission.icon.mi}}</i>
                         <i v-else-if="permission.icon.fa" class="material-icons">{{permission.icon.fa}}</i>
                         <i v-else-if="permission.icon.svg" class="material-icons">{{permission.icon.svg}}</i>
-                        <span>{{permission.sub_name}}</span>
+                        <span>{{permission.name}}</span>
                     </li>
                 
                 </router-link>
@@ -30,7 +30,7 @@
         
         <div class="bottom">
             <div>
-                <i class="material-icons">settings</i>
+                <i class="material-icons">person</i>
             </div>
             <div>
                 <i @click="$emit('logout', true)" class="material-icons">power_settings_new</i>
@@ -106,7 +106,6 @@ export default {
         font-size: 18px;
         text-transform: capitalize;
     }
-    
 
 </style>
 

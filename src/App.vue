@@ -4,7 +4,6 @@
     <side-nav @logout="logoutUser"/>
     <div class="wrapper">
       <header-bar/>
-      <!--TitleBar-->
       <slide-x-right-transition mode="out-in">
         <router-view/>
       </slide-x-right-transition>          
@@ -27,6 +26,11 @@ export default {
   computed: {
     isAuth() {
       return this.$store.getters["user/isAuthenticated"];
+    }
+  },
+  sockets:{
+    permission_update(payload){
+      console.log('client',payload)
     }
   },
   methods: {

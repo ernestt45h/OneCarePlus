@@ -1,0 +1,6 @@
+{
+  "appId": "com.onecare.plus",
+  "appName": "OneCarePlus",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}

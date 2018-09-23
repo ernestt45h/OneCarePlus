@@ -187,7 +187,7 @@ class UserModel extends BaseModel {
       permMod = new permMod() 
       return permMod.find(
         {'role': result.credentials.info.role, is_default: true},
-        'type role target name sub_name actions icon'
+        'type role target name sub_name actions icon is_default'
       ).then((newPems) => {
         
         console.log( result.credentials.info.role)

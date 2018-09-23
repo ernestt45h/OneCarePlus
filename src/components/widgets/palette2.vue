@@ -52,7 +52,7 @@ h1 {
   .card {
   margin: 0 -8px 32px -8px;
   color: rgba(0, 0, 0, 0.87); 
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
  .card .card-title {
   text-transform: capitalize;

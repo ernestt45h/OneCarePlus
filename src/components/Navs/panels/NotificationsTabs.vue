@@ -1,30 +1,36 @@
 <template>
     <div>
         <div class="notes">
-            <vs-button vs-size="large" vs-color="dark" vs-type="line" vs-icon="mail"></vs-button>
-            <vs-button vs-size="large" vs-color="dark" vs-type="line" vs-icon="notifications"></vs-button>
-            <vs-button vs-size="large" vs-color="dark" vs-type="line" vs-icon="inbox"></vs-button>    
+            <vs-chip color="primary">
+                <vs-avatar icon="notifications" />
+                2
+            </vs-chip>
+            <vs-chip color="danger">
+                <vs-avatar icon="mail" />
+                5
+            </vs-chip>
+            <vs-chip color="success">
+                <vs-avatar icon="dns" />
+                0
+            </vs-chip>  
         </div>
-        <vs-dropdown vs-custom-content vs-trigger-click >
-            <vs-button id="dropdown" style="border-radius: 50%"  vs-size="large" vs-color="primary" vs-type="filled" vs-icon="person"></vs-button>
-            <vs-dropdown-menu>
-                <h1 class="menu-pop">Hello user stuff</h1>
-            </vs-dropdown-menu>
-        </vs-dropdown>
-     
     </div>
 </template>
 <style scoped>
+
+    .menu{
+    }
 
     .menu-pop{
         min-width: 200px;
     }
 
     #dropdown{
-        margin: 0px 15px;
+        margin: 0 15px;
     }
     .notes{
         display: inline;
+        margin-top: 10px;
     }
 
 
@@ -40,6 +46,7 @@
 
         #dropdown{
             float: right;
+            margin: -5px 30px; 
         }
 
         p{

@@ -8,10 +8,7 @@ export default class MainService{
             baseURL: Api.host,
         })
         this.handler = Axios.create({
-            baseURL: Api.host,
-            auth:{
-                token: ''
-            }
+            baseURL: Api.host
         })
     }
 
@@ -20,7 +17,7 @@ export default class MainService{
         return this.unhandler.get(url).then(req=>{
             return req.data
         }).catch(err=>{
-            throw err
+            throw err.response.data
         })
     }
 
@@ -29,23 +26,23 @@ export default class MainService{
         return this.unhandler.post(url, body).then(req=>{
             return req.data
         }).catch(err=>{
-            throw err
+            throw err.response.data
         })
     }
 
     async authGet(url, token){
         return this.handler.get(url,{
-            auth: {
-                token
+            headers:{
+                Authorization:  `bearer ${token}`
             }
-        }).then(req=>req.data).catch(err=>err)
+        }).then(req=>req.data).catch(err=>{throw err.response.data})
     }
 
     async authPost(url, body, token){
         return this.handler.post(url, body ,{
-            auth: {
-                token
+            headers:{
+                Authorization:  `bearer ${token}`
             }
-        }).then(req=>req.data).catch(err=>err)
+        }).then(req=>req.data).catch(err=>{console.log(err); throw err.response.data})
     }
 }

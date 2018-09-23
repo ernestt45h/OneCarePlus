@@ -11,7 +11,6 @@ module.exports = (req, res, next)=>{
         //Verifing the token
         try {
             req.user = jwt.verify(req.token, secret)
-
             if(req.user.user_ip == req.ip) next()
             else {
                 res.status(401).send("Unacceptable token")

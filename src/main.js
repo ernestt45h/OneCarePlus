@@ -2,7 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
+import VueSocketio from 'vue-socket.io'
+import api from '../config/api.config'
 //import Icon from 'vue-awesome'
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
+
 
 import Transition from 'vue2-transitions'
 import Vuex from 'vuex'
@@ -13,10 +18,13 @@ import store from './store'
 //import { Plugins } from '@capacitor/core';
 //const { Device } = Plugins;
 
-
+if(process.env.NODE_ENV == 'development'){
+  require('font-awesome/css/font-awesome.css')
+  require('material-icons/iconfont/material-icons.css')
+}
+import 'bootstrap/dist/css/bootstrap.css'
 import './assets/css/main.css'
 import 'vuesax/dist/vuesax.css' //Vuesax styles
-import 'bootstrap/dist/css/bootstrap.css'
 
 Vue.use(Vuesax, {
   theme:{
@@ -29,6 +37,8 @@ Vue.use(Vuesax, {
     }
   }
 })
+
+Vue.use(VueSocketio, api.host, store)
 //Vue.component('icon', Icon)
 Vue.use(Vuex)
 Vue.use(Transition)
@@ -49,18 +59,24 @@ new Vue({
       notify: ''
     }
   },
+  beforeCreate(){
+    SplashScreen.show({
+      autoHide: false
+    });
+  },
   created() {    
     if(!this.$store.getters['user/isAuthenticated']){
       this.$router.push({name: 'Auth'})
     }
-
-    
 
     this.$store.subscribe((mutation, state)=>{
       if(mutation.type == 'notify'){
         this.notify = mutation.payload
       }
     })
+  },
+  mounted() {
+    SplashScreen.hide()
   },
   template: `
   <div>

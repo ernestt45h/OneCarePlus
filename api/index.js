@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+
 const host = require('./config/host')
 
 
@@ -17,6 +20,7 @@ const PermsRoute = require('./routes/PermissionRoute')
 
 //Database Connection
 const db = require('./config/database')
+mongoose.set('useFindAndModify', false)
 mongoose.connect(db.mongodb, {
   keepAlive: true,
   socketTimeoutMS: 0,
@@ -26,6 +30,15 @@ mongoose.connect(db.mongodb, {
     console.log(err)
   else
     console.log(`API @ ${host.name}:${host.port} DB connection to ${db.mongodb} successfully`)
+})
+
+io.on('connection',socket=>{
+  console.log('user connected')
+})
+
+app.use(function(req,res,next){
+  req.io = io
+  next()
 })
 
 app.use(bodyParser.json())
@@ -40,4 +53,6 @@ app.use('/user', UserRoute)
 app.use('/permission', authChecker, PermsRoute)
 
 
-app.listen(host.port);
+http.listen(host.port, ()=>{
+  console.log('runnuing on ',host.name, host.port)
+});

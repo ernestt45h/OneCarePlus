@@ -14,7 +14,10 @@ const Permission = mongoose.Schema({
         name: String
     },
     description: String,
-    role: String,
+    role: {
+        type: String,
+        enum: settings.users
+    },
     actions: [{
         type: String,
         enum: ['create', 'read', 'update', 'delete', 'develop']
@@ -28,7 +31,10 @@ const Permission = mongoose.Schema({
         default: false
     },
     dev_id: {type: mongoose.Schema.ObjectId, ref:'user'},
-    type: String,
+    type: { 
+        type: String,
+        enum: ['navigation', 'analytics']
+    },
     icon:{
         fa: String,
         mi: String,
@@ -37,9 +43,8 @@ const Permission = mongoose.Schema({
 })
 
 Permission.pre('save', function(next){
-    this.name = this.name.toUpperCase()
-    this.sub_name = this.name.toLowerCase()
-    this.sub_name= this.sub_name.replace(new RegExp(' ', 'g'), '_')
+    this.name = this.name.toLowerCase()
+    this.sub_name= this.name.replace(new RegExp(' ', 'g'), '_')
     if(!this.access_point) {
         const host = require('../config/host')
         this.access_point = host.name + '/' + this.sub_name

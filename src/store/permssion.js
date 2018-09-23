@@ -9,6 +9,5 @@ export default{
             return getters.all.filter(nav=>nav.type == "navigation")
         }
     },
-    mutations:{},
     actions:{}
 }
